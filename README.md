@@ -3,6 +3,9 @@
 Description coming soon
 
 >### Changelog
+>**v.0.2.7 - 13.04.2022**
+>- Heroku changed Gitlab CI/CD
+> 
 >**v.0.2.6 - 03.04.2022**
 >- Changed configured to Heroku hosting
 > 
