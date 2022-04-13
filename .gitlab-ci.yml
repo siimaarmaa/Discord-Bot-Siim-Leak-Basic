@@ -1,9 +1,26 @@
-deploy:
+  deploy:
+  image: debian:stretch
   stage: deploy
   variables:
     HEROKU_APP: siimleaksbasic
+    HEROKU_DEPLOYMENT_BRANCH: main
   only:
     - main
+  before_script:
+    - apt-get update -y
+    - apt-get install -y curl git gnupg
+    - curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+    - |
+      cat >~/.netrc <<EOF
+      machine api.heroku.com
+        login $HEROKU_EMAIL
+        password $HEROKU_PRODUCTION_API_KEY
+      machine git.heroku.com
+        login $HEROKU_EMAIL
+        password $HEROKU_PRODUCTION_API_KEY
+      EOF
+    - chmod 600 ~/.netrc
+    - heroku git:remote --app $HEROKU_APP
   script:
-    - gem install dpl
-    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_PRODUCTION_API_KEY
+    - git checkout $CI_COMMIT_SHA
+    - git push heroku $CI_COMMIT_SHA:$HEROKU_DEPLOYMENT_BRANCH
