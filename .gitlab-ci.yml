@@ -6,5 +6,4 @@ deploy:
   only:
     - main
   script:
-    - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_PRODUCTION_API_KEY
