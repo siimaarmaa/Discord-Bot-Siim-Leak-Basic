@@ -1,9 +1,21 @@
-deploy:
-  stage: deploy
-  variables:
-    HEROKU_APP: $HEROKU_APP
-  only:
-    - main
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
   script:
-    - gem install dpl
-    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_TOKEN
+  - apt-get update -qy
+  - apt-get install -y python-dev python-pip
+  - pip install -r requirements.txt
+  - python main.py test
+
+production:
+  stage: deploy
+  script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dpl
+  - dpl --provider=heroku --app=gitlab-ci-python-test-prod --api-key=$HEROKU_PRODUCTION_API_KEY
+  only:
+  - master
