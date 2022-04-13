@@ -1,4 +1,4 @@
-  deploy:
+deploy:
   image: debian:stretch
   stage: deploy
   variables:
