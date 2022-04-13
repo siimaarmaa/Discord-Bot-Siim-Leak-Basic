@@ -25,7 +25,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 @bot.event
 async def on_ready():
     global guild
-    await bot.change_presence(status=nextcord.Status.idle, activity=nextcord.Game('I was made in Python!!'))
+    await bot.change_presence(status=nextcord.Status.idle, activity=nextcord.Game('I was made in Python!! with Heroku + Gitlab CI/CD'))
 
     for guild in bot.guilds:
         if guild.name == guild:
