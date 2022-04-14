@@ -1,6 +1,6 @@
 deploy:
   stage: deploy
   script:
-  - gem install faraday
-  - gem install dpl
+  - gem install faraday -v 2.2.0
+  - gem install dpl -v 1.9.8
   - dpl --provider=heroku --app=siimleaksbasic --api-key=$HEROKU_API_KEY
