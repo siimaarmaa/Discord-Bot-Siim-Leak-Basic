@@ -1,8 +1,8 @@
 # Discord Bot: Siim Leaks Basic (Discord bot)
 # Author: Siim "Siim Leaks" Aarmaa - www.aarmaa.ee
 # Start year: 17.08.2021
-# Version number: v.0.2.7
-# Last update: 13.04.2022
+# Version number: v.0.2.8
+# Last update: 17.04.2022
 
 import nextcord
 import os
