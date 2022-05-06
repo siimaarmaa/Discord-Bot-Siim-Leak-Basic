@@ -4,7 +4,7 @@ Description coming soon
 
 >### Changelog
 >**v.0.2.8 - 17.04.2022**
->- Fixed React role channel problem. Now can react roles again.
+>- Fixed React role channel problem. Now can react roles again..
 > 
 >**v.0.2.7 - 13.04.2022**
 >- Heroku changed Gitlab CI/CD
