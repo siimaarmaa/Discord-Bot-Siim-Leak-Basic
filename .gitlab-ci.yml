@@ -26,8 +26,6 @@ docker-build:
         - Dockerfile
 
 variables:
-  DOCKER_HOST: tcp://localhost:2375/
-  DOCKER_DRIVER: overlay2
   APP_NAME: siim-leaks-basic
 
 deploy:
