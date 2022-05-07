@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.applicationName }}
+  namespace: {{ .Values.applicationName  }}
+spec:
+  replicas: 2
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: {{ .Values.applicationName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.applicationName  }}
+    spec:
+      containers:
+        - name: {{ .Values.applicationName }}
+          imagePullPolicy: Always
+          image: nginx:1.19.4
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html/index.html
+              name: nginx-conf
+              subPath: index.html
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: {{ .Values.applicationName  }}-configmap
