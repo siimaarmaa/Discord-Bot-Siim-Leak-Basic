@@ -4,6 +4,7 @@ services:
 
 stages:
   - build
+  - deploy
 
 variables:
   CONTAINER_IMAGE: sanderknape/go-hello-world:${CI_COMMIT_SHORT_SHA}
