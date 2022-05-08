@@ -1,0 +1,11 @@
+image: registry.gitlab.com/xa-online-2021-march/builder:latest
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f siimaarmaa.yml
+  only:
+    - master
