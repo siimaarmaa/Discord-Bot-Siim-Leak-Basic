@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: go
-          image: sanderknape/go-hello-world:<VERSION>
+          image: registry.gitlab.com/siimaarmaa/discord-bot-siim-leak-basic:prod
           ports:
 
             - containerPort: 8080
