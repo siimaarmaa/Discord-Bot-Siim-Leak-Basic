@@ -3,6 +3,9 @@
 Description coming soon
 
 >### Changelog
+>**v.0.2.9 - 08.05.2022**
+>- Bot is running kubernetes
+> 
 >**v.0.2.8 - 17.04.2022**
 >- Fixed React role channel problem. Now can react roles again.
 > 
