@@ -6,6 +6,6 @@ stages:
 deploy:
   stage: deploy
   script:
-    - kubectl apply -f siimaarmaa.yml
+    - kubectl apply -f deployment.yaml
   only:
     - master
