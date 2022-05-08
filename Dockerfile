@@ -1,7 +1,8 @@
-FROM node:12.16.1-apline
+FROM python:3.9
 
-COPY . .
+RUN mkdir /app
+WORKDIR /app
+ADD . /app/
+RUN pip install -r requirements.txt
 
-CMD node server.js
-
-EXPOSE 80
+CMD ["python", "/app/main.py"]
