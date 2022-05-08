@@ -19,10 +19,7 @@ deploy-prod:
   stage: deploy
   image: roffe/kubectl
   script:
-    - kubectl get pods
-    - kubectl get all
-    - kubectl get namespaces
-    - kubectl apply -f scheduler-deployment.yaml
+    - kubectl apply -f deployment.yaml
   environment:
     name: production
     kubernetes:
