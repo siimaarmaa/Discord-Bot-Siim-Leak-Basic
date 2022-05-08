@@ -1,7 +1,4 @@
-FROM python:3.9
-
-RUN rm -rf /var/cache/apk && \
-    rm -rf tmp/cache
+FROM python:3.10
 
 RUN mkdir /app
 
