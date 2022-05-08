@@ -34,7 +34,7 @@ build:
 
 deploy:
   stage: deploy
-  image: dtzar/helm-kubectl
+  image: registry.gitlab.com/siimaarmaa/discord-bot-siim-leak-basic:latest
   script:
     - kubectl config set-cluster quickstart-hcloud-custom --server="${SERVER}"
     - kubectl config set clusters.quickstart-hcloud-custom.certificate-authority-data ${CERTIFICATE_AUTHORITY_DATA}
