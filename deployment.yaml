@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: siim-leaks-basic
+  namepsace: siim-leaks-basic
+spec:
+    spec:
+      containers:
+      - name: siim-leaks-basic
+        image: siimleaks/siim_leaks_basic
+        imagePullPolicy: IfNotPresent
