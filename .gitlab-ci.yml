@@ -5,4 +5,4 @@ deploy:
   image: ruby:latest
   script:
     - gem install dpl && gem install faraday -v 1.8.0
-    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_PRODUCTION_KEY
