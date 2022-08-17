@@ -1,8 +1,8 @@
 # Discord Bot: Siim Leaks Basic (Discord bot)
 # Author: Siim "Siim Leaks" Aarmaa - www.aarmaa.ee
 # Start year: 17.08.2021
-# Version number: v.0.2.9
-# Last update: 08.05.2022
+# Version number: v.0.2.10
+# Last update: 16.08.2022
 
 import nextcord
 import os
@@ -25,7 +25,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 @bot.event
 async def on_ready():
     global guild
-    await bot.change_presence(status=nextcord.Status.idle, activity=nextcord.Game('I was made in Python!! with Kubernetes'))
+    await bot.change_presence(status=nextcord.Status.idle, activity=nextcord.Game('I was made in Python!!'))
 
     for guild in bot.guilds:
         if guild.name == guild:
