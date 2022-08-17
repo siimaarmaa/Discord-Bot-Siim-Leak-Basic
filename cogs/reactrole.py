@@ -9,7 +9,7 @@ class ReactRole(commands.Cog):
     # React role itself - add
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        if payload.channel_id == 960130059165904958:
+        if payload.channel_id == 1125146511085412413:
             guild_id = payload.guild_id
             guild_react_add = nextcord.utils.find(lambda g: g.id == guild_id, self.bot.guilds)
 
@@ -23,7 +23,7 @@ class ReactRole(commands.Cog):
     # React role itself - remove
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
-        if payload.channel_id == 960130059165904958:
+        if payload.channel_id == 1125146511085412413:
             guild_id = payload.guild_id
             guild_react_rem = nextcord.utils.find(lambda g: g.id == guild_id, self.bot.guilds)
 

@@ -1,0 +1,13 @@
+**/.dockerignore
+**/.env
+**/.git
+**/.gitignore
+**/.vs
+**/.vscode
+**/.idea
+**/Dockerfile*
+.github/*
+LICENSE
+README.md
+CHANGELOG.md
+PRIVACY.md

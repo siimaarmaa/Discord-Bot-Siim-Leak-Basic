@@ -1,14 +1,13 @@
 # Discord Bot: Siim Leaks Basic (Discord bot)
 # Author: Siim "Siim Leaks" Aarmaa - www.aarmaa.ee
 # Start year: 17.08.2021
-# Version number: v.0.2.10
-# Last update: 16.08.2022
+# Version number: v.0.2.37
+# Last update: 02.07.2023
 
 import nextcord
 import os
 from dotenv import load_dotenv
 from nextcord.ext import commands
-# import logging
 
 # Secrets set up
 load_dotenv()
@@ -17,15 +16,16 @@ guild = os.getenv('guild')
 
 # Discord bot code start
 # Command prefix
+# Gateway intents
 intents = nextcord.Intents().all()
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(intents=intents)
 
 
 # Bot Status Message
 @bot.event
 async def on_ready():
     global guild
-    await bot.change_presence(status=nextcord.Status.idle, activity=nextcord.Game('I was made in Python!!'))
+    await bot.change_presence(status=nextcord.Status.online, activity=nextcord.Game('I was made in Python!!'))
 
     for guild in bot.guilds:
         if guild.name == guild:
@@ -37,30 +37,42 @@ async def on_ready():
     )
 
 
-# Add auto role new member
-@bot.event
-async def on_member_join(member):
-    role = nextcord.utils.get(member.guild.roles, name="Viewer")
-    await member.add_roles(role)
-
-
 # Leaver log
 @bot.event
 async def on_member_remove(member):
-    channel = bot.get_channel(933020912700231721)
+    channel = bot.get_channel(1123993815901020320)
     await channel.send(f"{member.name} is leaver. Don't say goodbye!!")
 
 
-# Cog start
-bot.load_extension('moderated')  # Moderator commands in bot
-bot.load_extension('reactrole')  # React role in bot
-bot.load_extension('ping')  # Ping command in bot
-bot.load_extension('coinflip')  # Coin Flip command in bot
-bot.load_extension('randomjoke')  # Random Joke command in bot
+# Logs for mods and admins
+@bot.event
+async def on_message_delete(message):
+    embed = nextcord.Embed(title=f'{message.author.name} has deleted a message | {message.author.id}', description=f'{message.content}')
+    channel = bot.get_channel(1123964791074078720)
+    await channel.send(embed=embed)
 
+@bot.event
+async def on_message_edit(message_before, message_after):
+    embed = nextcord.Embed(title=f'{message_before.author.name} has edited a message | {message_before.author.id}')
+    embed.add_field(name='Before Message', value=f'{message_before.content}', inline=False)
+    embed.add_field(name='After Message', value=f'{message_after.content}', inline=False)
+    channel = bot.get_channel(1123964791074078720)
+    await channel.send(embed=embed)
+
+
+# Cog start
+bot.load_extension('cogs.moderated')  # Admins and Moderators commands
+bot.load_extension('cogs.verify')  # New member required verify
+bot.load_extension('cogs.dogpic')  # Random Dog picture
+#bot.load_extension('cogs.ai')  # Multiple AI commands
+bot.load_extension('cogs.ping')  # Test bot ping
+bot.load_extension('cogs.randomjoke')  # Random Joke
+bot.load_extension('cogs.reactrole')  # Self role react for fun
+bot.load_extension('cogs.support')  # Siim Leaks Basic Support
+bot.load_extension('cogs.help')  # Bot commands help menu
+bot.load_extension('cogs.report')  # Report user and message
+bot.load_extension('cogs.ticket')  # Create bug ticket or problem ticket
 # Cog end
-# Only for debug
-# logging.basicConfig(level=logging.DEBUG)
 
 # Discord bot code end
 bot.run(token)
