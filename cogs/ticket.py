@@ -19,7 +19,7 @@ class CreateTicket(nextcord.ui.View):
             interaction.user: nextcord.PermissionOverwrite(read_messages=True)
         }
 
-        category = interaction.guild.get_channel(1124771044796936233)
+        category = interaction.guild.get_channel(1182054708999889056)
 
         channel = await interaction.guild.create_text_channel(f'{interaction.user.name}-ticket', category=category,
                                                               overwrites=overwrites)
