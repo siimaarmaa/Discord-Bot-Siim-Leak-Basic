@@ -1,8 +1,8 @@
 # Discord Bot: Siim Leaks Basic (Discord bot)
 # Author: Siim "Siim Leaks" Aarmaa - www.aarmaa.ee
 # Start year: 17.08.2021
-# Version number: v.0.2.37
-# Last update: 02.07.2023
+# Version number: v.0.2.38
+# Last update: 06.12.2023
 
 import nextcord
 import os
@@ -47,9 +47,11 @@ async def on_member_remove(member):
 # Logs for mods and admins
 @bot.event
 async def on_message_delete(message):
-    embed = nextcord.Embed(title=f'{message.author.name} has deleted a message | {message.author.id}', description=f'{message.content}')
+    embed = nextcord.Embed(title=f'{message.author.name} has deleted a message | {message.author.id}',
+                           description=f'{message.content}')
     channel = bot.get_channel(1123964791074078720)
     await channel.send(embed=embed)
+
 
 @bot.event
 async def on_message_edit(message_before, message_after):
@@ -62,7 +64,6 @@ async def on_message_edit(message_before, message_after):
 
 # Cog start
 bot.load_extension('cogs.moderated')  # Admins and Moderators commands
-bot.load_extension('cogs.verify')  # New member required verify
 bot.load_extension('cogs.dogpic')  # Random Dog picture
 #bot.load_extension('cogs.ai')  # Multiple AI commands
 bot.load_extension('cogs.ping')  # Test bot ping

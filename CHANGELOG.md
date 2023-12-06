@@ -1,3 +1,7 @@
+## v.0.2.38 - 06.12.2023
+>- Removed verify cog
+>- Updated Ticket channel
+>
 ## v.0.2.37 - 02.07.2023
 >- Logs system added for mods and admins
 >- React role IDs updates

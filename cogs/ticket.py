@@ -21,10 +21,14 @@ class CreateTicket(nextcord.ui.View):
 
         category = interaction.guild.get_channel(1124771044796936233)
 
-        channel = await interaction.guild.create_text_channel(f'{interaction.user.name}-ticket', category=category, overwrites=overwrites)
+        channel = await interaction.guild.create_text_channel(f'{interaction.user.name}-ticket', category=category,
+                                                              overwrites=overwrites)
         await msg.edit(f'Channel created successfully! {channel.mention}')
-        embed = nextcord.Embed(title=f'Ticket created', description=f'{interaction.user.mention} created a ticket! Click one of the buttons below to alter the settings')
+        embed = nextcord.Embed(title=f'Ticket created', description=f'{interaction.user.mention} '
+                                                                    f'created a ticket! Click one of the buttons below '
+                                                                    f'to alter the settings')
         await channel.send(embed=embed, view=TicketSettings())
+
 
 class TicketSettings(nextcord.ui.View):
     def __init__(self):
@@ -38,11 +42,10 @@ class TicketSettings(nextcord.ui.View):
         await interaction.channel.delete()
         await interaction.user.send(f'Ticket **{interaction.channel.name}** successfully closed!')
 
+
 class Bot(commands.Cog):
-    #def __init__(self, *args, **kwargs):
     def __init__(self, bot):
-        #super().__init__(*args, **kwargs)
-        self.bot=bot
+        self.bot = bot
         self.persistent_views_added = False
 
     async def on_ready(self):
@@ -55,8 +58,11 @@ class Bot(commands.Cog):
     @nextcord.slash_command(description="Ticket Setup", default_member_permissions=8)
     @commands.has_permissions(manage_guild=True)
     async def setup_ticket(self, interaction: nextcord.Interaction):
-        embed = nextcord.Embed(title='Create Ticket', description="'Click the 'Create Ticket' button below to create a ticket. The server's staff will be noticed and shortly aid you with your problem.")
+        embed = nextcord.Embed(title='Create Ticket', description="'Click the 'Create Ticket' button below to create "
+                                                                  "a ticket. The server's staff will be noticed and "
+                                                                  "shortly aid you with your problem.")
         await interaction.send(embed=embed, view=CreateTicket())
+
 
 def setup(bot):
     bot.add_cog(Bot(bot))
