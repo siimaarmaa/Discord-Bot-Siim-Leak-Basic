@@ -65,7 +65,6 @@ async def on_message_edit(message_before, message_after):
 # Cog start
 bot.load_extension('cogs.moderated')  # Admins and Moderators commands
 bot.load_extension('cogs.dogpic')  # Random Dog picture
-#bot.load_extension('cogs.ai')  # Multiple AI commands
 bot.load_extension('cogs.ping')  # Test bot ping
 bot.load_extension('cogs.randomjoke')  # Random Joke
 bot.load_extension('cogs.reactrole')  # Self role react for fun

@@ -1,6 +1,8 @@
 ## v.0.2.38 - 06.12.2023
 >- Removed verify cog
 >- Updated Ticket channel
+>- Python version change
+>- AI removed
 >
 ## v.0.2.37 - 02.07.2023
 >- Logs system added for mods and admins
