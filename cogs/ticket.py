@@ -44,7 +44,7 @@ class Ticket(commands.Cog):
         view = View()
         view.add_item(CloseButton())
 
-        message = await channel.send(embed=embed, view=view)
+        await channel.send(embed=embed, view=view)
 
     @commands.Cog.listener()
     async def on_message(self, message):
