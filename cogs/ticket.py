@@ -22,7 +22,8 @@ class Ticket(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def create_ticket_channel(self, guild, user):
+    @staticmethod
+    async def create_ticket_channel(guild, user):
         category_name = "Support Tickets"
         category = nextcord.utils.get(guild.categories, name=category_name)
 
@@ -39,27 +40,27 @@ class Ticket(commands.Cog):
 
     @slash_command(name="openticket", description="Open a support ticket.")
     async def open_ticket(self, ctx):
-        channel = await self.create_ticket_channel(ctx.guild, ctx.user)
+        channel = await Ticket.create_ticket_channel(ctx.guild, ctx.author)
 
         embed = nextcord.Embed(
             title="Support Ticket",
-            description=f"Hello {ctx.user.mention}, please describe your issue.",
+            description=f"Hello {ctx.author.mention}, please describe your issue.",
             color=nextcord.Color.blue(),
         )
 
         view = View()
-        view.add_item(CloseButton(ctx.user.id))
+        view.add_item(CloseButton(ctx.author.id, self.bot))
 
         await channel.send(embed=embed, view=view)
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.user.bot:
+        if message.author.bot:
             return
         if isinstance(message.channel, nextcord.TextChannel):
             if message.channel.name.startswith("ticket-"):
                 view = View()
-                view.add_item(CloseButton(message.channel.overwrites_for(message.guild.default_role).pair()[0]))
+                view.add_item(CloseButton(message.channel.overwrites_for(message.guild.default_role).pair()[0], self.bot))
 
                 await message.edit(view=view)
 
