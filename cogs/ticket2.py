@@ -44,6 +44,20 @@ class Ticket(commands.Cog):
             channel = await category.create_text_channel(f"ticket-{message.author.id}", overwrites=overwrites)
             await channel.send(f"Hello {message.author.mention}, please describe your issue.")
 
+    @slash_command(name="closeticket", description="Close the support ticket.")
+    async def close_ticket(self, interaction):
+        # Assuming the ticket channel is named in the format "ticket-{user_id}"
+        ticket_channel_name = f"ticket-{interaction.user.id}"
+        ticket_channel = nextcord.utils.get(interaction.guild.channels, name=ticket_channel_name)
+
+        if ticket_channel:
+            await ticket_channel.delete()
+            await interaction.response.send_message(f"Your support ticket has been closed. If you have more questions, feel free to open a new ticket.")
+            # You can also send a private message to the user if the ticket is closed
+            await interaction.user.send("Your support ticket has been closed. If you have more questions, feel free to open a new ticket.")
+        else:
+            await interaction.response.send_message("You don't have an open support ticket.")
+
 
 def setup(bot):
     bot.add_cog(Ticket(bot))
