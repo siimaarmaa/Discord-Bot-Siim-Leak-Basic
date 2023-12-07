@@ -75,13 +75,9 @@ class SupportTicketCog(commands.Cog):
             )
             additional_details = await interaction.response.fetch_message()
 
-            # Check for the existence of the 'author' attribute
-            if interaction.member:
-                interaction_author = interaction.member
-            else:
-                interaction_author = None
-
             # Add the ticket information to a database or store it elsewhere
+            interaction_author = None  # Assign None to the 'interaction_author' variable
+
             if interaction_author is not None:
                 print(f"Ticket created: {issue_type} - {additional_details.content}")
                 await interaction_author.send(
