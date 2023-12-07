@@ -32,7 +32,8 @@ class SupportTicketCog(commands.Cog):
             choices=[
                 ("Bug Report", "bug_report"),
                 ("Feature Request", "feature_request"),
-                ("Other", "other")]
+                ("Other", "other")
+            ]
         )
         # Create a cancel button
         cancel_button = Button(
@@ -86,8 +87,7 @@ class SupportTicketCog(commands.Cog):
                 await interaction_author.send(
                     embed=nextcord.Embed(
                         title="Support Ticket Submitted",
-                        description=f"Your support ticket has been submitted for category '{category}'. "
-                                    f"We will review it and get back to you shortly.",
+                        description=f"Your support ticket has been submitted for category '{category}'. We will review it and get back to you shortly.",
                         color=nextcord.Color.green
                     )
                 )
