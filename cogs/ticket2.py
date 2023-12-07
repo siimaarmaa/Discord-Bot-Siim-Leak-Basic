@@ -21,7 +21,7 @@ class Ticket(commands.Cog):
         }
 
         channel = await category.create_text_channel(f"ticket-{interaction.user.id}", overwrites=overwrites)
-        await channel.send(f"Hello {interaction.author.mention}, please describe your issue.")
+        await channel.send(f"Hello {interaction.user.mention}, please describe your issue.")
 
     @commands.Cog.listener()
     async def on_message(self, message):
