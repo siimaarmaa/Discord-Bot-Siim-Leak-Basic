@@ -1,49 +1,97 @@
 import nextcord
 from nextcord.ext import commands
+from nextcord.ui import Button, View, Select
+from nextcord import Interaction, slash_command, ButtonStyle
 
 
+# Define a cog to handle support tickets
 class SupportTicketCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @nextcord.slash_command()
-    async def open_ticket(self, ctx, category):
-        # Check if the category is valid
-        if category not in valid_categories:
-            await ctx.send(f"Invalid category: {category}")
+    # Create a slash command for creating a support ticket
+    @slash_command(description="Create a new support ticket")
+    async def create_ticket(self, ctx, category: str):
+        # Check if the user has the required permissions
+        if not ctx.author.permissions_in(ctx.channel).administrator:
+            await ctx.respond(
+                embed=nextcord.Embed(
+                    title="Insufficient Permissions",
+                    description="Only administrators can create support tickets.",
+                    color=nextcord.Color.red
+                )
+            )
             return
 
-        # Create a new ticket and send it to the support channel
-        ticket_id = generate_ticket_id()
-        ticket_message = f"New support ticket opened: {ticket_id}"
-        await support_channel.send(ticket_message)
+        # Create a new support ticket message
+        ticket_message = await ctx.send(f"Creating support ticket for category: {category}")
 
-    @nextcord.slash_command()
-    async def close_ticket(self, ctx, ticket_id):
-        # Check if the ticket exists
-        if ticket_id not in active_tickets:
-            await ctx.send(f"Ticket with ID {ticket_id} does not exist")
-            return
+        # Create a form to gather additional details from the user
+        select = Select(
+            placeholder="Please select your issue type:",
+            choices=[
+                ("Bug Report", "bug_report"),
+                ("Feature Request", "feature_request"),
+                ("Other", "other")
+            ]
+        )
+        # Create a cancel button
+        cancel_button = Button(
+            label="Cancel",
+            style=ButtonStyle.danger,
+            emoji="❌"
+        )
 
-        # Remove the ticket from the list of active tickets
-        del active_tickets[ticket_id]
+        # Create a view to embed the form and buttons
+        view = View(select, cancel_button)
+        await ticket_message.edit(embed=nextcord.Embed(
+            title="Support Ticket Form",
+            color=nextcord.Color.yellow
+        ), view=view)
 
-    @nextcord.slash_command()
-    async def view_ticket(self, ctx, ticket_id):
-        # Check if the ticket exists
-        if ticket_id not in active_tickets:
-            await ctx.send(f"Ticket with ID {ticket_id} does not exist")
-            return
+        # Listen for button clicks
+        def check_button(interaction):
+            return interaction.message.id == ticket_message.id and interaction.view == view
 
-        # Retrieve the ticket information
-        ticket = active_tickets[ticket_id]
+        # Handle form submission
+        try:
+            interaction = await self.bot.wait_for('button_click', check=check_button)
 
-        # Format the ticket information into a message
-        ticket_message = f"Ticket ID: {ticket_id}\n\nCategory: {ticket.category}\n\nMessage: {ticket.message}"
+            chosen_issue_type = interaction.values['select']
+            if chosen_issue_type == "bug_report":
+                issue_type = "Bug Report"
+            elif chosen_issue_type == "feature_request":
+                issue_type = "Feature Request"
+            else:
+                issue_type = "Other"
 
-        # Send the ticket message to the user
-        await ctx.send(ticket_message)
+            # Gather additional details from the user
+            await interaction.response.send_message(
+                embed=nextcord.Embed(
+                    title="Provide additional details for your support ticket:",
+                    description="Please provide a brief description of your issue or request.",
+                    color=nextcord.Color.magenta
+                )
+            )
+            additional_details = await interaction.response.fetch_message()
+
+            # Add the ticket information to a database or store it elsewhere
+            print(f"Ticket created: {issue_type} - {additional_details.content}")
+
+            # Respond to the user with a confirmation message
+            await interaction.response.send_message(
+                embed=nextcord.Embed(
+                    title="Support Ticket Submitted",
+                    description="Your support ticket has been submitted. We will review it and get back to you shortly.",
+                    color=nextcord.Color.green
+                )
+            )
+            await ticket_message.delete()
+
+        except (nextcord.NotFound, nextcord.ClientException) as e:
+            print(f"Error handling support ticket form: {e}")
 
 
+# Add the cog to the bot
 def setup(bot):
     bot.add_cog(SupportTicketCog(bot))
