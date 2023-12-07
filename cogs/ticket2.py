@@ -4,8 +4,8 @@ from nextcord import slash_command
 
 
 class Ticket(commands.Cog):
-    def __init__(self):
-        super().__init__(timeout=None)
+    def __init__(self, bot):
+        self.bot = bot
 
     @slash_command(name="openticket", description="Open a support ticket.")
     async def open_ticket(self, interaction):
