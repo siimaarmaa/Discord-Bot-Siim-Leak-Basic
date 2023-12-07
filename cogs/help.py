@@ -7,7 +7,7 @@ class Help(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @slash_command(name='help', description='Siim Leaks Community Bot Commands', guild_ids=[])
+    @slash_command(name='help', description='Leaks Community Bot Commands', guild_ids=[])
     async def help(self, ctx):
         bot_commands = Button(label='Show bot commands', style=ButtonStyle.blurple)
 
@@ -16,9 +16,9 @@ class Help(commands.Cog):
                                                     '/joke - Get Random Joke\n'
                                                     '/dog - Get Random Dog picture\n'
                                                     '/ping - Bot ping command\n'
-                                                    '/support - Siim Leaks Community Support\n'
+                                                    '/support - Leaks Community Support\n'
                                                     '/unban - Unban user (only for admins)\n'
-                                                    '/ai - Ask something in bot\n')
+                                                    )
 
         bot_commands.callback = bot_commands_callback
 

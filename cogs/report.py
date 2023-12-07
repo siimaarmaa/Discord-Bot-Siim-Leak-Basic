@@ -53,7 +53,7 @@ class Report(commands.Cog):
 
     @nextcord.message_command(name="Report message")
     async def report(self, interaction: nextcord.Interaction, message: nextcord.Message):
-        report_channel = self.bot.get_channel(1120075135957860462)
+        report_channel = self.bot.get_channel(1182356797168812032)
 
         em = nextcord.Embed(
             title="Message reported",
