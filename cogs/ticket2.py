@@ -6,8 +6,8 @@ class SupportTicketCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    @commands.guild_only()
+    @nextcord.slash_command(description="Ticket Setup", default_member_permissions=8)
+    @commands.has_permissions(manage_guild=True)
     async def create_ticket(self, ctx):
         # Verify that the user is in a supported category
         if ctx.channel.category != 'support-tickets':
