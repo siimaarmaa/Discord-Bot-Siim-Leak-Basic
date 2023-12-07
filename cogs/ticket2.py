@@ -1,99 +1,47 @@
 import nextcord
 from nextcord.ext import commands
-from nextcord.ui import Button, View, Select
-from nextcord import slash_command, ButtonStyle
+from nextcord import Interaction, slash_command
 
 
-# Define a cog to handle support tickets
-class SupportTicketCog(commands.Cog):
+class Ticket(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    # Create a slash command for creating a support ticket
-    @slash_command(description="Create a new support ticket")
-    async def create_ticket(self, ctx, category: str):
-        # Check if the user has the required permissions
-        if not ctx.author.permissions_in(ctx.channel).administrator:
-            await ctx.respond(
-                embed=nextcord.Embed(
-                    title="Insufficient Permissions",
-                    description="Only administrators can create support tickets.",
-                    color=nextcord.Color.red
-                )
-            )
+    @slash_command(name="openticket", description="Open a support ticket.")
+    async def open_ticket(self, ctx):
+        category_name = "Support Tickets"
+        category = nextcord.utils.get(ctx.guild.categories, name=category_name)
+
+        if not category:
+            category = await ctx.guild.create_category(category_name)
+
+        overwrites = {
+            ctx.guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
+            ctx.author: nextcord.PermissionOverwrite(read_messages=True, send_messages=True),
+        }
+
+        channel = await category.create_text_channel(f"ticket-{ctx.author.id}", overwrites=overwrites)
+        await channel.send(f"Hello {ctx.author.mention}, please describe your issue.")
+
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.author.bot:
             return
+        if isinstance(message.channel, nextcord.DMChannel):
+            category_name = "Support Tickets"
+            category = nextcord.utils.get(message.guild.categories, name=category_name)
 
-        # Create a new support ticket message
-        ticket_message = await ctx.send(f"Creating support ticket for category: {category}")
+            if not category:
+                category = await message.guild.create_category(category_name)
 
-        # Create a form to gather additional details from the user
-        select = Select(
-            placeholder="Please select your issue type:",
-            choices=[
-                ("Bug Report", "bug_report"),
-                ("Feature Request", "feature_request"),
-                ("Other", "other")
-            ]
-        )
-        # Create a cancel button
-        cancel_button = Button(
-            label="Cancel",
-            style=ButtonStyle.danger,
-            emoji="❌"
-        )
+            overwrites = {
+                message.guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
+                message.author: nextcord.PermissionOverwrite(read_messages=True, send_messages=True),
+            }
 
-        # Create a view to embed the form and buttons
-        view = View(select, cancel_button)
-        await ticket_message.edit(embed=nextcord.Embed(
-            title="Support Ticket Form",
-            color=nextcord.Color.yellow
-        ), view=view)
-
-        # Listen for button clicks
-        def check_button(interaction):
-            return interaction.message.id == ticket_message.id and interaction.view == view
-
-        # Handle form submission
-        try:
-            interaction = await self.bot.wait_for('button_click', check=check_button)
-
-            chosen_issue_type = interaction.values['select']
-            if chosen_issue_type == "bug_report":
-                issue_type = "Bug Report"
-            elif chosen_issue_type == "feature_request":
-                issue_type = "Feature Request"
-            else:
-                issue_type = "Other"
-
-            # Gather additional details from the user
-            await interaction.response.send_message(
-                embed=nextcord.Embed(
-                    title="Provide additional details for your support ticket:",
-                    description="Please provide a brief description of your issue or request.",
-                    color=nextcord.Color.magenta
-                )
-            )
-            additional_details = await interaction.response.fetch_message()
-
-            # Add the ticket information to a database or store it elsewhere
-            interaction_author = None  # Assign None to the 'interaction_author' variable
-
-            if interaction_author is not None:
-                print(f"Ticket created: {issue_type} - {additional_details.content}")
-                await interaction_author.send(
-                    embed=nextcord.Embed(
-                        title="Support Ticket Submitted",
-                        description=f"Your support ticket has been submitted for category '{category}'. We will review it and get back to you shortly.",
-                        color=nextcord.Color.green
-                    )
-                )
-                await ticket_message.delete()
-            else:
-                print(f"Ticket created: {issue_type} - {additional_details.content}")
-                await ticket_message.delete()
-        except Exception as e:
-            print(f"Error handling support ticket form: {e}")
+            channel = await category.create_text_channel(f"ticket-{message.author.id}", overwrites=overwrites)
+            await channel.send(f"Hello {message.author.mention}, please describe your issue.")
 
 
 def setup(bot):
-    bot.add_cog(SupportTicketCog(bot))
+    bot.add_cog(Ticket(bot))
