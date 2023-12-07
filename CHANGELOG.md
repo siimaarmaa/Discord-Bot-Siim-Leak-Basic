@@ -3,6 +3,7 @@
 >- Help commands update
 >- Report channel update for admin/moderator
 >- Support button links fixed
+>- New ticket system
 >
 ## v.0.2.38 - 06.12.2023
 >- Removed verify cog
