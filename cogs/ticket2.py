@@ -76,9 +76,9 @@ class SupportTicketCog(commands.Cog):
             additional_details = await interaction.response.fetch_message()
 
             # Check for the existence of the 'author' attribute
-            try:
-                interaction_author = interaction.author
-            except AttributeError:
+            if interaction.member:
+                interaction_author = interaction.member
+            else:
                 interaction_author = None
 
             # Add the ticket information to a database or store it elsewhere
@@ -97,9 +97,6 @@ class SupportTicketCog(commands.Cog):
                 await ticket_message.delete()
         except Exception as e:
             print(f"Error handling support ticket form: {e}")
-
-            # Delete the support ticket message
-            await ticket_message.delete()
 
 
 def setup(bot):
