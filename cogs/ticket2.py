@@ -22,7 +22,7 @@ class Ticket(commands.Cog):
             interaction.user: nextcord.PermissionOverwrite(read_messages=True)
         }
 
-        channel = await category.create_text_channel(f"ticket-{interaction.author.id}", overwrites=overwrites)
+        channel = await category.create_text_channel(f"ticket-{interaction.user.id}", overwrites=overwrites)
         await channel.send(f"Hello {interaction.author.mention}, please describe your issue.")
 
     @commands.Cog.listener()
