@@ -1,7 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 from nextcord.ui import Button, View, Select
-from nextcord import Interaction, slash_command, ButtonStyle
+from nextcord import slash_command, ButtonStyle
 
 
 # Define a cog to handle support tickets
@@ -32,8 +32,7 @@ class SupportTicketCog(commands.Cog):
             choices=[
                 ("Bug Report", "bug_report"),
                 ("Feature Request", "feature_request"),
-                ("Other", "other")
-            ]
+                ("Other", "other")]
         )
         # Create a cancel button
         cancel_button = Button(
@@ -87,13 +86,20 @@ class SupportTicketCog(commands.Cog):
                 await interaction_author.send(
                     embed=nextcord.Embed(
                         title="Support Ticket Submitted",
-                        description=f"Your support ticket has been submitted for category '{category}'. We will review it and get back to you shortly.",
+                        description=f"Your support ticket has been submitted for category '{category}'. "
+                                    f"We will review it and get back to you shortly.",
                         color=nextcord.Color.green
                     )
                 )
                 await ticket_message.delete()
             else:
-                print(f"Ticket created: {issue_type}");
+                print(f"Ticket created: {issue_type} - {additional_details.content}")
+                await ticket_message.delete()
+        except Exception as e:
+            print(f"Error handling support ticket form: {e}")
+
+            # Delete the support ticket message
+            await ticket_message.delete()
 
 
 def setup(bot):
