@@ -1,3 +1,6 @@
+## v.0.2.39 - 07.12.2023
+>- Main code updated
+>
 ## v.0.2.38 - 06.12.2023
 >- Removed verify cog
 >- Updated Ticket channel

@@ -1,8 +1,9 @@
 # Discord Bot: Siim Leaks Basic (Discord bot)
 # Author: Siim "Siim Leaks" Aarmaa - www.aarmaa.ee
+# Facebook: Aarmaa - https://www.facebook.com/aarmaa.ee
 # Start year: 17.08.2021
-# Version number: v.0.2.38
-# Last update: 06.12.2023
+# Version number: v.0.2.39
+# Last update: 07.12.2023
 
 import nextcord
 import os
@@ -40,7 +41,7 @@ async def on_ready():
 # Leaver log
 @bot.event
 async def on_member_remove(member):
-    channel = bot.get_channel(1123993815901020320)
+    channel = bot.get_channel(1182057463147679754)
     await channel.send(f"{member.name} is leaver. Don't say goodbye!!")
 
 
@@ -49,7 +50,7 @@ async def on_member_remove(member):
 async def on_message_delete(message):
     embed = nextcord.Embed(title=f'{message.author.name} has deleted a message | {message.author.id}',
                            description=f'{message.content}')
-    channel = bot.get_channel(1123964791074078720)
+    channel = bot.get_channel(1182057463147679754)
     await channel.send(embed=embed)
 
 
@@ -58,7 +59,7 @@ async def on_message_edit(message_before, message_after):
     embed = nextcord.Embed(title=f'{message_before.author.name} has edited a message | {message_before.author.id}')
     embed.add_field(name='Before Message', value=f'{message_before.content}', inline=False)
     embed.add_field(name='After Message', value=f'{message_after.content}', inline=False)
-    channel = bot.get_channel(1123964791074078720)
+    channel = bot.get_channel(1182057463147679754)
     await channel.send(embed=embed)
 
 
