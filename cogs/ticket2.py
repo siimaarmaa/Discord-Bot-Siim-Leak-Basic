@@ -6,25 +6,43 @@ class SupportTicketCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @nextcord.slash_command(description="Ticket Setup", default_member_permissions=8)
-    @commands.has_permissions(manage_guild=True)
-    async def create_ticket(self, ctx):
-        # Verify that the user is in a supported category
-        if ctx.channel.category != 'support-tickets':
-            await ctx.send('You can only create tickets in the support-tickets category.')
+    @nextcord.slash_command()
+    async def open_ticket(self, ctx, category):
+        # Check if the category is valid
+        if category not in valid_categories:
+            await ctx.send(f"Invalid category: {category}")
             return
 
-        # Create a new channel for the ticket
-        embed = nextcord.Embed(title='New Support Ticket', description='Your ticket has been created.')
-        channel = await ctx.guild.create_text_channel('ticket-{}'.format(ctx.author.id))
-        await channel.send(embed=embed)
+        # Create a new ticket and send it to the support channel
+        ticket_id = generate_ticket_id()
+        ticket_message = f"New support ticket opened: {ticket_id}"
+        await support_channel.send(ticket_message)
 
-        # Add the user's role to the channel
-        role = nextcord.utils.get(ctx.guild.roles, name='Support Agent')
-        await channel.set_permissions(ctx.author, overwrite={role: nextcord.PermissionOverwrite(read_messages=True)})
+    @nextcord.slash_command()
+    async def close_ticket(self, ctx, ticket_id):
+        # Check if the ticket exists
+        if ticket_id not in active_tickets:
+            await ctx.send(f"Ticket with ID {ticket_id} does not exist")
+            return
 
-        # Send an initial message to the channel
-        await channel.send('Please describe your issue in detail.')
+        # Remove the ticket from the list of active tickets
+        del active_tickets[ticket_id]
+
+    @nextcord.slash_command()
+    async def view_ticket(self, ctx, ticket_id):
+        # Check if the ticket exists
+        if ticket_id not in active_tickets:
+            await ctx.send(f"Ticket with ID {ticket_id} does not exist")
+            return
+
+        # Retrieve the ticket information
+        ticket = active_tickets[ticket_id]
+
+        # Format the ticket information into a message
+        ticket_message = f"Ticket ID: {ticket_id}\n\nCategory: {ticket.category}\n\nMessage: {ticket.message}"
+
+        # Send the ticket message to the user
+        await ctx.send(ticket_message)
 
 
 def setup(bot):
