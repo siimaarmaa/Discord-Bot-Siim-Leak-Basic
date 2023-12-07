@@ -40,22 +40,22 @@ class Ticket(commands.Cog):
 
     @slash_command(name="openticket", description="Open a support ticket.")
     async def open_ticket(self, ctx):
-        channel = await Ticket.create_ticket_channel(ctx.guild, ctx.author)
+        channel = await Ticket.create_ticket_channel(ctx.guild, ctx.user)
 
         embed = nextcord.Embed(
             title="Support Ticket",
-            description=f"Hello {ctx.author.mention}, please describe your issue.",
+            description=f"Hello {ctx.user.mention}, please describe your issue.",
             color=nextcord.Color.blue(),
         )
 
         view = View()
-        view.add_item(CloseButton(ctx.author.id, self.bot))
+        view.add_item(CloseButton(ctx.user.id, self.bot))
 
         await channel.send(embed=embed, view=view)
 
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author.bot:
+        if message.user.bot:
             return
         if isinstance(message.channel, nextcord.TextChannel):
             if message.channel.name.startswith("ticket-"):
