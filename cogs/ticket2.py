@@ -17,8 +17,6 @@ class Ticket(commands.Cog):
 
         overwrites = {
             interaction.guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
-            interaction.guild.me: nextcord.PermissionOverwrite(read_messages=True),
-            interaction.guild.get_role(1069731597861003276): nextcord.PermissionOverwrite(read_messages=True),
             interaction.user: nextcord.PermissionOverwrite(read_messages=True)
         }
 
