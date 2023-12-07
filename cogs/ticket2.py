@@ -44,7 +44,7 @@ class Ticket(commands.Cog):
             channel = await category.create_text_channel(f"ticket-{message.author.id}", overwrites=overwrites)
             await channel.send(f"Hello {message.author.mention}, please describe your issue.")
 
-    @slash_command(name="closeticket", description="Close the support ticket.")
+    @commands.command(name="closeticket", description="Close the support ticket.")
     async def close_ticket(self, interaction):
         # Assuming the ticket channel is named in the format "ticket-{user_id}"
         ticket_channel_name = f"ticket-{interaction.user.id}"
