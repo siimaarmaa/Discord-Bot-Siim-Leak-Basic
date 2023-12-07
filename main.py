@@ -18,8 +18,19 @@ guild = os.getenv('guild')
 # Discord bot code start
 # Command prefix
 # Gateway intents
-intents = nextcord.Intents().all()
+intents = nextcord.Intents.all()
 bot = commands.Bot(intents=intents)
+
+
+async def on_ready():
+    print(f"Logged in as {bot.user.name}")
+
+if __name__ == "__main__":
+    # Adjust the permissions as needed
+    permissions = nextcord.Permissions.all()
+    invite_url = nextcord.utils.oauth_url(bot.user.id, permissions=permissions)
+
+    print(f"Invite the bot using the following URL:\n{invite_url}")
 
 
 # Bot Status Message
