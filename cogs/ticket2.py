@@ -75,23 +75,26 @@ class SupportTicketCog(commands.Cog):
             )
             additional_details = await interaction.response.fetch_message()
 
+            # Check for the existence of the 'author' attribute
+            try:
+                interaction_author = interaction.author
+            except AttributeError:
+                interaction_author = None
+
             # Add the ticket information to a database or store it elsewhere
-            print(f"Ticket created: {issue_type} - {additional_details.content}")
-
-            # Respond to the user with a confirmation message
-            await interaction.response.send_message(
-                embed=nextcord.Embed(
-                    title="Support Ticket Submitted",
-                    description="Your support ticket has been submitted. We will review it and get back to you shortly.",
-                    color=nextcord.Color.green
+            if interaction_author is not None:
+                print(f"Ticket created: {issue_type} - {additional_details.content}")
+                await interaction_author.send(
+                    embed=nextcord.Embed(
+                        title="Support Ticket Submitted",
+                        description=f"Your support ticket has been submitted for category '{category}'. We will review it and get back to you shortly.",
+                        color=nextcord.Color.green
+                    )
                 )
-            )
-            await ticket_message.delete()
-
-        except (nextcord.NotFound, nextcord.ClientException) as e:
-            print(f"Error handling support ticket form: {e}")
+                await ticket_message.delete()
+            else:
+                print(f"Ticket created: {issue_type}");
 
 
-# Add the cog to the bot
 def setup(bot):
     bot.add_cog(SupportTicketCog(bot))
