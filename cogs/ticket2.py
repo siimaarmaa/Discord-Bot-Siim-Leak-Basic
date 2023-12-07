@@ -4,24 +4,26 @@ from nextcord import slash_command
 
 
 class Ticket(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self):
+        super().__init__(timeout=None)
 
     @slash_command(name="openticket", description="Open a support ticket.")
-    async def open_ticket(self, ctx):
+    async def open_ticket(self, interaction):
         category_name = "Support Tickets"
-        category = nextcord.utils.get(ctx.guild.categories, name=category_name)
+        category = nextcord.utils.get(interaction.guild.categories, name=category_name)
 
         if not category:
-            category = await ctx.guild.create_category(category_name)
+            category = await interaction.guild.create_category(category_name)
 
         overwrites = {
-            ctx.guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
-            ctx.author: nextcord.PermissionOverwrite(read_messages=True, send_messages=True),
+            interaction.guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
+            interaction.guild.me: nextcord.PermissionOverwrite(read_messages=True),
+            interaction.guild.get_role(1069731597861003276): nextcord.PermissionOverwrite(read_messages=True),
+            interaction.user: nextcord.PermissionOverwrite(read_messages=True)
         }
 
-        channel = await category.create_text_channel(f"ticket-{ctx.author.id}", overwrites=overwrites)
-        await channel.send(f"Hello {ctx.author.mention}, please describe your issue.")
+        channel = await category.create_text_channel(f"ticket-{interaction.author.id}", overwrites=overwrites)
+        await channel.send(f"Hello {interaction.author.mention}, please describe your issue.")
 
     @commands.Cog.listener()
     async def on_message(self, message):
