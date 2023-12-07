@@ -1,6 +1,6 @@
 import nextcord
 from nextcord.ext import commands
-from nextcord import Interaction, slash_command
+from nextcord import slash_command
 
 
 class Ticket(commands.Cog):
