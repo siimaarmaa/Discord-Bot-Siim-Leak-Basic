@@ -7,7 +7,7 @@ class ServerStats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @slash_command(name="serverstats")
+    @slash_command(name='serverstats', description='ServerStats', guild_ids=[])
     async def server_stats(self, ctx):
         guild = ctx.guild
 
