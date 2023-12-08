@@ -12,7 +12,7 @@ class ServerStats(commands.Cog):
         self.bot = bot
 
         # Define the channels where the stats will be displayed
-        self.channels = [1182060683014189116]
+        self.channels = [1182746155172511774]
 
         # Create a task that will run every 60 seconds (1 minute)
         self.update_stats_task = self.bot.loop.create_task(self.update_stats())
@@ -28,7 +28,6 @@ class ServerStats(commands.Cog):
         # Format the stats into a string
         formatted_stats = f'''
             **Server Stats**
-
             **Total Members:** {stats.member_count}
             **Online Members:** {stats.online_member_count}
             **Server Created:** {datetime.datetime.fromtimestamp(stats.created_at).strftime('%Y-%m-%d %H:%M:%S')}
