@@ -1,45 +1,26 @@
 import nextcord
-from nextcord.ext import commands
-from nextcord.ext.tasks import loop
-from nextcord.utils import get
-from typing import List
-import datetime
-import time
+from nextcord.ext import commands, tasks
 
 
 class ServerStats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.update_stats.start()
 
-        # Define the channels where the stats will be displayed
-        self.channels = [1182746155172511774, 1182746894548615178]
+    def cog_unload(self):
+        self.update_stats.cancel()
 
-        # Create a task that will run every 60 seconds (1 minute)
-        self.update_stats_task = self.bot.loop.create_task(self.update_stats())
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        print('Server Stats cog is ready')
-
+    @tasks.loop(minutes=5)  # Adjust the interval as needed
     async def update_stats(self):
-        # Get the current server stats
-        stats = await self.bot.fetch_server_stats()
+        for guild in self.bot.guilds:
+            channel_id = 1182060683014189116  # Replace with your channel ID
+            channel = guild.get_channel(channel_id)
 
-        # Format the stats into a string
-        formatted_stats = f'''
-            **Server Stats**
-            **Total Members:** {stats.member_count}
-            **Online Members:** {stats.online_member_count}
-            **Server Created:** {datetime.datetime.fromtimestamp(stats.created_at).strftime('%Y-%m-%d %H:%M:%S')}
-            **Server Activity:** {stats.activity_count}
-        '''
+            if channel:
+                total_members = len(guild.members)
+                online_members = sum(member.status == nextcord.Status.online for member in guild.members)
 
-        # Send the formatted stats to all the channels
-        for channel in self.channels:
-            await self.bot.get_channel(channel).send(formatted_stats)
-
-        # Delay the task by 60 seconds (1 minute)
-        await asyncio.sleep(60)
+                await channel.edit(name=f"Server Stats: {online_members}/{total_members} online")
 
 
 def setup(bot):
