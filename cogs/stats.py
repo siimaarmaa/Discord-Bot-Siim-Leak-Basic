@@ -27,9 +27,9 @@ class ServerStats(commands.Cog):
         await ctx.send(f"Server Statistics for {guild.name}:\n"
                        f"Total Members: {total_members}\n"
                        f"Online Members: {online_members}\n"
+                       f"Total Bots: {bot_members}\n"
                        f"Text Channels: {text_channels}\n"
                        f"Voice Channels: {voice_channels}\n\n"
-                       f"Voice Channel Information:\n" + "\n".join(voice_channels_info))
 
 
 def setup(bot):
