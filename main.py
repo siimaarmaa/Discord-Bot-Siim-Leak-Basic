@@ -73,7 +73,7 @@ bot.load_extension('cogs.support')  # Siim Leaks Basic Support
 bot.load_extension('cogs.help')  # Bot commands help menu
 bot.load_extension('cogs.report')  # Report user and message
 bot.load_extension('cogs.ticket')  # Create bug ticket or problem ticket
-bot.load_extension('cogs.stats')  # Server stats
+bot.load_extension('cogs.botinfo')  # Bot Info
 # Cog end
 
 # Discord bot code end
