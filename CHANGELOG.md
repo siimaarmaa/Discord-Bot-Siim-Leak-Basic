@@ -1,5 +1,6 @@
 ## v.0.2.40 - 08.12.2023
 >- Channel ID update
+>- Removed button click for /help command
 >
 ## v.0.2.39 - 07.12.2023
 >- Main code updated
