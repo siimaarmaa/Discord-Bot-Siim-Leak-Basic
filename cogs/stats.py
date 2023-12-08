@@ -16,6 +16,7 @@ class ServerStats(commands.Cog):
         online_members = sum(member.status != nextcord.Status.offline for member in guild.members)
         text_channels = len(guild.text_channels)
         voice_channels = len(guild.voice_channels)
+        bot_members = sum(member.bot for member in guild.members)
 
         # Get voice chat information
         voice_channels_info = []
@@ -29,7 +30,7 @@ class ServerStats(commands.Cog):
                        f"Online Members: {online_members}\n"
                        f"Total Bots: {bot_members}\n"
                        f"Text Channels: {text_channels}\n"
-                       f"Voice Channels: {voice_channels}\n\n"
+                       f"Voice Channels: {voice_channels}\n\n")
 
 
 def setup(bot):
