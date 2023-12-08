@@ -15,7 +15,8 @@ class CloseButton(nextcord.ui.Button):
 
         user = await self.bot.fetch_user(self.user_id)
         if user:
-            await user.send("Your support ticket has been closed. If you have further questions, feel free to open a new ticket.")
+            await user.send("Your support ticket has been closed. If you have further questions, "
+                            "feel free to open a new ticket.")
 
 
 class Ticket(commands.Cog):
@@ -60,7 +61,8 @@ class Ticket(commands.Cog):
         if isinstance(message.channel, nextcord.TextChannel):
             if message.channel.name.startswith("ticket-"):
                 view = View()
-                view.add_item(CloseButton(message.channel.overwrites_for(message.guild.default_role).pair()[0], self.bot))
+                view.add_item(CloseButton(message.channel.overwrites_for(message.guild.default_role).pair()[0],
+                                          self.bot))
 
                 await message.edit(view=view)
 

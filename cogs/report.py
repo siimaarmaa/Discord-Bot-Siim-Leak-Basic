@@ -27,7 +27,7 @@ class USERREPORT(nextcord.ui.Modal):
         self.add_item(self.proofs)
 
     async def callback(self, interaction: nextcord.Interaction) -> None:
-        report_channel = interaction.client.get_channel(1182356797168812032) # reports
+        report_channel = interaction.client.get_channel(1182356797168812032)  # reports
         if self.proofs is None:
             bw = "```/```"
 
@@ -53,7 +53,7 @@ class Report(commands.Cog):
 
     @nextcord.message_command(name="Report message")
     async def report(self, interaction: nextcord.Interaction, message: nextcord.Message):
-        report_channel = self.bot.get_channel(1182356797168812032) # reports
+        report_channel = self.bot.get_channel(1182356797168812032)  # reports
 
         em = nextcord.Embed(
             title="Message reported",

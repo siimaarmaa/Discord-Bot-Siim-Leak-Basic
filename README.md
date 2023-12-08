@@ -6,16 +6,6 @@ A simple, but powerful bot for Discord
 
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
-
-This is a list of things you need to use the software and how to install them.
-
-* [docker](https://docs.docker.com/engine/install/)
-
-### Installation
-
-[Docs](https://docs.2f.ee/)
-
 ## Usage
 
 You can start using Siim Leaks Basic right away, if you've followed Installation steps. Simply add your bot to your own

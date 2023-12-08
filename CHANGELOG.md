@@ -2,6 +2,7 @@
 >- Channel ID update
 >- Removed button click for /help command
 >- Server Bot Info for users added
+>- Code Style Fixes
 >
 ## v.0.2.39 - 07.12.2023
 >- Main code updated
