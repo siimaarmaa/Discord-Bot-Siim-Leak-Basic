@@ -13,7 +13,7 @@ class ServerStats(commands.Cog):
     @tasks.loop(minutes=5)  # Adjust the interval as needed
     async def update_stats(self):
         for guild in self.bot.guilds:
-            channel_id = 1182060683014189116  # Replace with your channel ID
+            channel_id = 1182752396359766026  # Replace with your channel ID
             channel = guild.get_channel(channel_id)
 
             if channel:
