@@ -5,8 +5,8 @@ import platform
 
 
 class Info(commands.Cog):
-  def __init__(self, client):
-    self.client = client
+  def __init__(self, bot):
+    self.bot = bot
 
   @slash_command()
   async def info(self, ctx):
@@ -18,7 +18,7 @@ class Info(commands.Cog):
     embed = nextcord.Embed(
       title=f"{self.client.user.name} Stats",
       description="\uFEFF",
-      colour=ctx.author.colour,
+      colour=ctx.user.colour,
       timestamp=ctx.message.created_at,
     )
 
@@ -34,5 +34,6 @@ class Info(commands.Cog):
 
     await ctx.send(embed=embed)
 
+
 def setup(client):
-  client.add_cog(Info(client))
+  bot.add_cog(Info(client))
