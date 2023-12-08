@@ -1,12 +1,13 @@
 import nextcord
 from nextcord.ext import commands
+from nextcord import slash_command
 
 
 class ServerStats(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="serverstats")
+    @slash_command(name="serverstats")
     async def server_stats(self, ctx):
         guild = ctx.guild
 
