@@ -26,7 +26,7 @@ bot = commands.Bot(intents=intents)
 @bot.event
 async def on_ready():
     global guild
-    await bot.change_presence(status=nextcord.Status.do_not_disturb, activity=nextcord.Game('I was made in Python!!'))
+    await bot.change_presence(status=nextcord.Status.online, activity=nextcord.Game('I was made in Python!!'))
 
     for guild in bot.guilds:
         if guild.name == guild:
