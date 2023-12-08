@@ -12,11 +12,11 @@ class Info(commands.Cog):
   async def info(self, ctx):
     pythonVersion = platform.python_version()
     nextcordVersion = nextcord.__version__
-    serverCount = len(self.client.guilds)
-    memberCount = len(set(self.client.get_all_members()))
+    serverCount = len(self.bot.guilds)
+    memberCount = len(set(self.bot.get_all_members()))
 
     embed = nextcord.Embed(
-      title=f"{self.client.user.name} Stats",
+      title=f"{self.bot.user.name} Stats",
       description="\uFEFF",
       colour=ctx.user.colour,
       timestamp=ctx.message.created_at,
@@ -30,10 +30,10 @@ class Info(commands.Cog):
     embed.add_field(name="Bot Developers:", value="<@185089253611536384>")
     embed.set_footer(text = f"[Support Server](https://nextcord.gg/ZsZQ4SHsqs)")
 
-    embed.set_footer(text=f"Siim Leaks Basic | {self.client.user.name}")
+    embed.set_footer(text=f"Siim Leaks Basic | {self.bot.user.name}")
 
     await ctx.send(embed=embed)
 
 
-def setup(client):
-  bot.add_cog(Info(client))
+def setup(bot):
+  bot.add_cog(Info(bot))
