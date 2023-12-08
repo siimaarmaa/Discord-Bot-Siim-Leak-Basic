@@ -12,7 +12,7 @@ class ServerStats(commands.Cog):
         self.bot = bot
 
         # Define the channels where the stats will be displayed
-        self.channels = [1182746155172511774]
+        self.channels = [1182746155172511774, 1182746894548615178]
 
         # Create a task that will run every 60 seconds (1 minute)
         self.update_stats_task = self.bot.loop.create_task(self.update_stats())
