@@ -1,16 +1,29 @@
-- name: Install doctl
-  uses: digitalocean/action-doctl@v2
-  with:
-  token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-- name: Generate GITHUB_SHA
-  id: github-sha
-  shell: bash
-  run: |
-    SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-7)
-    echo "::set-output name=sha::$SHORT_SHA"
-- name: Publish Image to Digital Ocean Container Registry
-  shell: bash
-  run: |
-    doctl registry login --expiry-seconds 600
-    docker build . -t registry.digitalocean.com/sample-go/add_sample:${{steps.github-sha.outputs.sha}}
-    docker push registry.digitalocean.com/sample-go/add_sample:${{steps.github-sha.outputs.sha}}
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'config/**'
+      - 'server.py'
+      - 'Dockerfile'
+      - '.github/workflows/**'
+
+jobs:
+ build:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Checkout master
+      uses: actions/checkout@main
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+    - name: Build container image
+      run: docker build -t registry.digitalocean.com/aarmaa/aarmaa:$(echo $GITHUB_SHA | head -c7) .
+
+    - name: Log in to DigitalOcean Container Registry with short-lived credentials
+      run: doctl registry login --expiry-seconds 1200
+
+    - name: Push image to DigitalOcean Container Registry
+      run: docker push registry.digitalocean.com/aarmaa/aarmaa:$(echo $GITHUB_SHA | head -c7)
