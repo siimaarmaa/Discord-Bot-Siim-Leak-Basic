@@ -1,3 +1,4 @@
+name: Deploy DigitalOcean Private Registry
 on:
   push:
     branches:
