@@ -76,4 +76,4 @@ bot.load_extension('cogs.ticket')  # Create bug ticket or problem ticket
 # Cog end
 
 # Discord bot code end
-bot.run(TOKEN)
+bot.run(token)
