@@ -12,8 +12,8 @@ from nextcord.ext import commands
 
 # Secrets set up
 load_dotenv()
-token = os.getenv('token')
-guild = os.getenv('guild')
+token = os.getenv('TOKEN')
+guild = os.getenv('GUILD')
 
 # Discord bot code start
 # Command prefix
@@ -76,4 +76,4 @@ bot.load_extension('cogs.ticket')  # Create bug ticket or problem ticket
 # Cog end
 
 # Discord bot code end
-bot.run(token)
+bot.run(TOKEN)
