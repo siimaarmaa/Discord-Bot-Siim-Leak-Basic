@@ -2,8 +2,8 @@
 # Author: Siim "Siim Leaks" Aarmaa - www.aarmaa.ee
 # Facebook: Aarmaa - https://www.facebook.com/aarmaa.ee
 # Start year: 17.08.2021
-# Version number: v.0.2.40
-# Last update: 08.12.2023
+# Version number: v.0.2.41
+# Last update: 27.01.2024
 
 import nextcord
 import os

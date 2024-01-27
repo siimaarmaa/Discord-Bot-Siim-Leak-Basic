@@ -1,3 +1,7 @@
+## v.0.2.41 - 27.01.2024
+>- Now using DigitalOcean Docker images registry
+>- Hosted now own server
+>
 ## v.0.2.40 - 08.12.2023
 >- Channel ID update
 >- Removed button click for /help command
