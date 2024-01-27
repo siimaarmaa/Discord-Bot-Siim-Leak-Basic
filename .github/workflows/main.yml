@@ -17,12 +17,10 @@ jobs:
         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
     - name: Build container image
-      with:
-        context: .
-        secrets: |
-          "guild=${{ secrets.GUILD }}"
-          "token=${{ secrets.TOKEN }}"
       run: docker build -t registry.digitalocean.com/aarmaa/aarmaa:$(echo $GITHUB_SHA | head -c7) .
+      env:
+        GUILD: ${{ secrets.GUILD }}
+        TOKEN: ${{ secrets.TOKEN }}
 
     - name: Log in to DigitalOcean Container Registry with short-lived credentials
       run: doctl registry login --expiry-seconds 1200
