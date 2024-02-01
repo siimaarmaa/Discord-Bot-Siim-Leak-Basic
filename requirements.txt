@@ -1,3 +1,4 @@
 nextcord[voice]
 requests
 python-dotenv
+beautifulsoup4
