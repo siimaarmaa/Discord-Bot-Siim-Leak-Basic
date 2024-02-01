@@ -1,0 +1,30 @@
+name: Automated Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Read Changelog
+      id: read_changelog
+      run: |
+        echo "::set-output name=changelog::$(cat CHANGELOG.md)"
+
+    - name: Create Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: ${{ steps.read_changelog.outputs.changelog }}
+        draft: false
+        prerelease: false
