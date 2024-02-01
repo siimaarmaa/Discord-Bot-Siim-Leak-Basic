@@ -29,7 +29,7 @@ class FreeGames(commands.Cog):
 
     @tasks.loop(hours=24)
     async def daily_free_games(self):
-        channel_id = YOUR_CHANNEL_ID
+        channel_id = 1202604833442373743
         channel = self.bot.get_channel(channel_id)
         try:
             games = self.scrape_epic_games()  # Changed FreeGames to self
