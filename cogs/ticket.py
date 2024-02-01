@@ -54,9 +54,12 @@ class Ticket(commands.Cog):
             description=f"Hello {interaction.user.mention}, please describe your issue.",
             color=nextcord.Color.blue(),
         )
+
+        # Create the view with the CloseButton
         view = View()
         view.add_item(CloseButton(interaction.user.id, self.bot))
-        # Send the initial message with the CloseButton. This is the only message that will have it.
+
+        # Send the initial message with the CloseButton in this view
         await channel.send(embed=embed, view=view)
 
     @commands.Cog.listener()
