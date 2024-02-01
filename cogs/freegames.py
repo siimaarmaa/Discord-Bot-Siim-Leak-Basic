@@ -3,7 +3,7 @@ from nextcord.ext import commands, tasks
 import requests
 from bs4 import BeautifulSoup
 
-class Epicgamesfree(commands.Cog):
+class FreeGames(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.daily_free_games.start()  # Start the task when the cog is loaded
@@ -29,10 +29,17 @@ class Epicgamesfree(commands.Cog):
 
     @tasks.loop(hours=24)
     async def daily_free_games(self):
-        channel_id = 1202604833442373743
+        channel_id = YOUR_CHANNEL_ID
         channel = self.bot.get_channel(channel_id)
-        games = FreeGames.scrape_epic_games()
-        await channel.send(games)
+        try:
+            games = self.scrape_epic_games()  # Changed FreeGames to self
+            await channel.send(games)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+    @daily_free_games.error
+    async def daily_free_games_error(self, error):
+        print(f"An error occurred in the loop: {error}")
 
 def setup(bot):
-    bot.add_cog(Epicgamesfree(bot))
+    bot.add_cog(FreeGames(bot))
