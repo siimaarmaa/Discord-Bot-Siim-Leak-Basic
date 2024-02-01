@@ -66,5 +66,6 @@ class Ticket(commands.Cog):
                 view.add_item(CloseButton(message.author.id, self.bot))
                 await message.reply(view=view)
 
+
 def setup(bot):
     bot.add_cog(Ticket(bot))
