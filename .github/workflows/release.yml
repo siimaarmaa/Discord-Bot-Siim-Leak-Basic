@@ -13,6 +13,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Extract branch name
+      id: extract_branch
+      shell: bash
+      run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+
     - name: Read Changelog
       id: read_changelog
       run: |
@@ -23,8 +28,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
+        tag_name: ${{ steps.extract_branch.outputs.branch }}
+        release_name: Release ${{ steps.extract_branch.outputs.branch }}
         body: ${{ steps.read_changelog.outputs.changelog }}
         draft: false
         prerelease: false
