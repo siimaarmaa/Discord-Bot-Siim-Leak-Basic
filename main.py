@@ -41,7 +41,7 @@ async def on_ready():
 # Leaver log
 @bot.event
 async def on_member_remove(member):
-    channel = bot.get_channel(1182057463147679754)  # activity-logs
+    channel = bot.get_channel(1202606214215766067)  # activity-logs
     await channel.send(f"{member.name} is leaver. Don't say goodbye!!")
 
 
@@ -50,7 +50,7 @@ async def on_member_remove(member):
 async def on_message_delete(message):
     embed = nextcord.Embed(title=f'{message.author.name} has deleted a message | {message.author.id}',
                            description=f'{message.content}')
-    channel = bot.get_channel(1182057463147679754)  # activity-logs
+    channel = bot.get_channel(1202606325767479297)  # activity-logs
     await channel.send(embed=embed)
 
 
@@ -59,7 +59,7 @@ async def on_message_edit(message_before, message_after):
     embed = nextcord.Embed(title=f'{message_before.author.name} has edited a message | {message_before.author.id}')
     embed.add_field(name='Before Message', value=f'{message_before.content}', inline=False)
     embed.add_field(name='After Message', value=f'{message_after.content}', inline=False)
-    channel = bot.get_channel(1182057463147679754)  # activity-logs
+    channel = bot.get_channel(1202606441253437501)  # activity-logs
     await channel.send(embed=embed)
 
 
@@ -73,6 +73,7 @@ bot.load_extension('cogs.support')  # Siim Leaks Basic Support
 bot.load_extension('cogs.help')  # Bot commands help menu
 bot.load_extension('cogs.report')  # Report user and message
 bot.load_extension('cogs.ticket')  # Create bug ticket or problem ticket
+bot.load_extension('cogs.epicgamesfree')  # Create bug ticket or problem ticket
 # Cog end
 
 # Discord bot code end
