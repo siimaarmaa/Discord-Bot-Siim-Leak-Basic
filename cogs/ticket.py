@@ -48,8 +48,6 @@ class Ticket(commands.Cog):
 
     @nextcord.slash_command(name="openticket", description="Open a support ticket.")
     async def open_ticket(self, interaction: nextcord.Interaction):
-        # Acknowledge the interaction
-        await interaction.response.defer()
         channel = await Ticket.create_ticket_channel(interaction.guild, interaction.user)
         embed = nextcord.Embed(
             title="Support Ticket",
