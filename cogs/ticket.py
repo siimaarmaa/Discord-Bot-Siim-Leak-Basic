@@ -56,6 +56,7 @@ class Ticket(commands.Cog):
         )
         view = View()
         view.add_item(CloseButton(interaction.user.id, self.bot))
+        # Send the initial message with the CloseButton. This is the only message that will have it.
         await channel.send(embed=embed, view=view)
 
     @commands.Cog.listener()
