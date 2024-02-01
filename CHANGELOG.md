@@ -1,3 +1,8 @@
+## v.0.2.42 - 01.02.2024
+>- Updated channels ID
+>- Fixed ticket code bugs
+>- Added Epic Games Free games automatic post
+>
 ## v.0.2.41 - 27.01.2024
 >- Now using DigitalOcean Docker images registry
 >- Hosted now own server
