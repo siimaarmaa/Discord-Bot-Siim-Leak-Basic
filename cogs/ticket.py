@@ -15,6 +15,8 @@ class CloseButton(nextcord.ui.Button):
         self.bot = bot
 
     async def callback(self, interaction: nextcord.Interaction):
+        # Acknowledge the interaction
+        await interaction.response.defer()
         # Check if the user who clicked is the ticket owner or has admin permissions
         if interaction.user.id == self.user_id or interaction.user.guild_permissions.administrator:
             await interaction.channel.delete()
@@ -46,6 +48,8 @@ class Ticket(commands.Cog):
 
     @nextcord.slash_command(name="openticket", description="Open a support ticket.")
     async def open_ticket(self, interaction: nextcord.Interaction):
+        # Acknowledge the interaction
+        await interaction.response.defer()
         channel = await Ticket.create_ticket_channel(interaction.guild, interaction.user)
         embed = nextcord.Embed(
             title="Support Ticket",
