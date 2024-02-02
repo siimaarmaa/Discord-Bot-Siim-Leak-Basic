@@ -1,3 +1,6 @@
+## v.0.2.43 - 02.02.2024
+>- Code structures changes
+>
 ## v.0.2.42 - 01.02.2024
 >- Updated channels ID
 >- Fixed ticket code bugs

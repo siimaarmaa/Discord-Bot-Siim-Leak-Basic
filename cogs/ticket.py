@@ -1,11 +1,5 @@
 import nextcord
 from nextcord.ext import commands
-from nextcord import slash_command
-from nextcord.ui import View
-
-
-import nextcord
-from nextcord.ext import commands
 from nextcord.ui import View
 
 class CloseButton(nextcord.ui.Button):
