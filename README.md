@@ -1,6 +1,6 @@
 # Siim Leaks Basic Discord Bot
 
-A simple, but powerful bot for Discord
+Siim Leaks Basic is a versatile and user-friendly Discord bot designed to enhance your server's functionality and engagement. Whether you're managing a small community or a large group, this bot offers essential features to streamline your Discord experience.
 
 ## Getting Started
 
