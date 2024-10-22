@@ -26,8 +26,8 @@ jobs:
 
       # Step 4: Build the Docker image
       - name: Build Docker image
-        run: docker build -t registry.digitalocean.com/tourepo/discord_bot:latest .
+        run: docker build -t registry.digitalocean.com/touit/discord_bot:latest .
 
       # Step 5: Push Docker image to DigitalOcean Container Registry
       - name: Push Docker image
-        run: docker push registry.digitalocean.com/tourepo/discord_bot:latest
+        run: docker push registry.digitalocean.com/touit/discord_bot:latest
