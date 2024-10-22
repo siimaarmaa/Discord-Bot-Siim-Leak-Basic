@@ -6,7 +6,6 @@
 **/.vscode
 **/.idea
 **/Dockerfile*
-.github/*
 LICENSE
 README.md
 CHANGELOG.md
