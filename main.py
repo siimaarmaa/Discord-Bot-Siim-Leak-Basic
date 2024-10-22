@@ -5,10 +5,10 @@
 # Version number: v.0.2.43
 # Last update: 02.02.2024
 
-import nextcord
+import discord
 import os
 from dotenv import load_dotenv
-from nextcord.ext import commands
+from discord.ext import commands
 
 # Load environment variables
 load_dotenv()
@@ -22,7 +22,7 @@ message_edit_channel_id = int(os.getenv('MESSAGE_EDIT_CHANNEL_ID'))  # Added env
 
 # Discord bot code start
 # Setting up Discord bot with intents
-intents = nextcord.Intents.all()
+intents = discord.Intents.all()
 bot = commands.Bot(intents=intents)
 
 
@@ -30,7 +30,7 @@ bot = commands.Bot(intents=intents)
 @bot.event
 async def on_ready():
     global guild_name  # Reference the global variable
-    await bot.change_presence(status=nextcord.Status.online, activity=nextcord.Game('I was made in Python!!'))
+    await bot.change_presence(status=discord.Status.online, activity=discord.Game('I was made in Python!!'))
 
     for guild in bot.guilds:
         if guild.name == guild_name:  # Compare with the correct guild name
@@ -51,7 +51,7 @@ async def on_member_remove(member):
 async def on_message_delete(message):
     channel = bot.get_channel(message_delete_channel_id)
     if channel:
-        embed = nextcord.Embed(title=f'{message.author.name} has deleted a message | {message.author.id}',
+        embed = discord.Embed(title=f'{message.author.name} has deleted a message | {message.author.id}',
                                description=f'{message.content}')
         await channel.send(embed=embed)
 
@@ -60,7 +60,7 @@ async def on_message_delete(message):
 async def on_message_edit(message_before, message_after):
     channel = bot.get_channel(message_edit_channel_id)
     if channel:
-        embed = nextcord.Embed(title=f'{message_before.author.name} has edited a message | {message_before.author.id}')
+        embed = discord.Embed(title=f'{message_before.author.name} has edited a message | {message_before.author.id}')
         embed.add_field(name='Before Message', value=message_before.content, inline=False)
         embed.add_field(name='After Message', value=message_after.content, inline=False)
         await channel.send(embed=embed)

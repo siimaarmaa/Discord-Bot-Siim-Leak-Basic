@@ -1,14 +1,14 @@
-import nextcord
-from nextcord.ext import commands
-from nextcord.ui import View
+import discord
+from discord.ext import commands
+from discord.ui import View
 
-class CloseButton(nextcord.ui.Button):
+class CloseButton(discord.ui.Button):
     def __init__(self, user_id, bot):
-        super().__init__(style=nextcord.ButtonStyle.red, label="Close Ticket")
+        super().__init__(style=discord.ButtonStyle.red, label="Close Ticket")
         self.user_id = user_id
         self.bot = bot
 
-    async def callback(self, interaction: nextcord.Interaction):
+    async def callback(self, interaction: discord.Interaction):
         # Acknowledge the interaction
         await interaction.response.defer()
         # Check if the user who clicked is the ticket owner or has admin permissions
@@ -29,24 +29,24 @@ class Ticket(commands.Cog):
     @staticmethod
     async def create_ticket_channel(guild, user):
         category_name = "Support Tickets"
-        category = nextcord.utils.get(guild.categories, name=category_name)
+        category = discord.utils.get(guild.categories, name=category_name)
         if not category:
             category = await guild.create_category(category_name)
 
         overwrites = {
-            guild.default_role: nextcord.PermissionOverwrite(read_messages=False),
-            user: nextcord.PermissionOverwrite(read_messages=True, send_messages=True),
+            guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            user: discord.PermissionOverwrite(read_messages=True, send_messages=True),
         }
         channel = await category.create_text_channel(f"ticket-{user.id}", overwrites=overwrites)
         return channel
 
-    @nextcord.slash_command(name="openticket", description="Open a support ticket.")
-    async def open_ticket(self, interaction: nextcord.Interaction):
+    @discord.slash_command(name="openticket", description="Open a support ticket.")
+    async def open_ticket(self, interaction: discord.Interaction):
         channel = await Ticket.create_ticket_channel(interaction.guild, interaction.user)
-        embed = nextcord.Embed(
+        embed = discord.Embed(
             title="Support Ticket",
             description=f"Hello {interaction.user.mention}, please describe your issue.",
-            color=nextcord.Color.blue(),
+            color=discord.Color.blue(),
         )
 
         # Create the view with the CloseButton
@@ -60,7 +60,7 @@ class Ticket(commands.Cog):
     async def on_message(self, message):
         if message.author.bot:
             return
-        if isinstance(message.channel, nextcord.TextChannel):
+        if isinstance(message.channel, discord.TextChannel):
             if message.channel.name.startswith("ticket-"):
                 view = View()
                 view.add_item(CloseButton(message.author.id, self.bot))

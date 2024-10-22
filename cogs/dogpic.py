@@ -1,6 +1,6 @@
 import requests
-from nextcord import Interaction, slash_command
-from nextcord.ext import commands
+from discord import Interaction, slash_command
+from discord.ext import commands
 
 
 class DogPic(commands.Cog):

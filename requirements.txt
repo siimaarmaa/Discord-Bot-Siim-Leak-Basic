@@ -1,5 +1,4 @@
-nextcord
+py-cord[voice]
 requests
 python-dotenv
 beautifulsoup4
-audioop

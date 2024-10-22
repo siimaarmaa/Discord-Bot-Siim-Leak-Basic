@@ -1,5 +1,5 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 
 
 class ReactRole(commands.Cog):
@@ -11,12 +11,12 @@ class ReactRole(commands.Cog):
     async def on_raw_reaction_add(self, payload):
         if payload.channel_id == 1202605345915011122:  # react-role
             guild_id = payload.guild_id
-            guild_react_add = nextcord.utils.find(lambda g: g.id == guild_id, self.bot.guilds)
+            guild_react_add = discord.utils.find(lambda g: g.id == guild_id, self.bot.guilds)
 
-            role = nextcord.utils.get(guild_react_add.roles, name=payload.emoji.name)
+            role = discord.utils.get(guild_react_add.roles, name=payload.emoji.name)
 
             if role is not None:
-                member = nextcord.utils.find(lambda m: m.id == payload.user_id, guild_react_add.members)
+                member = discord.utils.find(lambda m: m.id == payload.user_id, guild_react_add.members)
                 if member is not None:
                     await member.add_roles(role)
 
@@ -25,12 +25,12 @@ class ReactRole(commands.Cog):
     async def on_raw_reaction_remove(self, payload):
         if payload.channel_id == 1202605345915011122:  # react-role
             guild_id = payload.guild_id
-            guild_react_rem = nextcord.utils.find(lambda g: g.id == guild_id, self.bot.guilds)
+            guild_react_rem = discord.utils.find(lambda g: g.id == guild_id, self.bot.guilds)
 
-            role = nextcord.utils.get(guild_react_rem.roles, name=payload.emoji.name)
+            role = discord.utils.get(guild_react_rem.roles, name=payload.emoji.name)
 
             if role is not None:
-                member = nextcord.utils.find(lambda m: m.id == payload.user_id, guild_react_rem.members)
+                member = discord.utils.find(lambda m: m.id == payload.user_id, guild_react_rem.members)
                 if member is not None:
                     await member.remove_roles(role)
 

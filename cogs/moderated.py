@@ -1,7 +1,7 @@
-import nextcord
-from nextcord import slash_command, Interaction
-from nextcord.ext import commands
-from nextcord.ui import Button, View
+import discord
+from discord import slash_command, Interaction
+from discord.ext import commands
+from discord.ui import Button, View
 
 
 class Moderated(commands.Cog):
@@ -27,8 +27,8 @@ class Moderated(commands.Cog):
 
         # Define buttons for confirmation
         view = View()
-        confirm_button = Button(label='Confirm', style=nextcord.ButtonStyle.green)
-        cancel_button = Button(label='Cancel', style=nextcord.ButtonStyle.red)
+        confirm_button = Button(label='Confirm', style=discord.ButtonStyle.green)
+        cancel_button = Button(label='Cancel', style=discord.ButtonStyle.red)
         view.add_item(confirm_button)
         view.add_item(cancel_button)
 
@@ -58,7 +58,7 @@ class Moderated(commands.Cog):
     async def unban(
             self,
             ctx: Interaction,
-            member: nextcord.User = nextcord.SlashOption(
+            member: discord.User = discord.SlashOption(
                 name='member',
                 description='The User ID of the person you want to unban.')
     ):

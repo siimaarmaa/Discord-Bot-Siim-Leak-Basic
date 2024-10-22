@@ -1,6 +1,6 @@
-from nextcord import ButtonStyle, slash_command
-from nextcord.ui import Button, View
-from nextcord.ext import commands
+from discord import ButtonStyle, slash_command
+from discord.ui import Button, View
+from discord.ext import commands
 
 
 class Support(commands.Cog):

@@ -1,13 +1,13 @@
-import nextcord
-from nextcord.ext import commands
+import discord
+from discord.ext import commands
 import aiohttp
 
 class RandomJoke(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @nextcord.slash_command(name="joke", description="Random Joke")
-    async def joke(self, interaction: nextcord.Interaction):
+    @discord.slash_command(name="joke", description="Random Joke")
+    async def joke(self, interaction: discord.Interaction):
         joke_url = 'https://icanhazdadjoke.com/'
         headers = {'Accept': 'application/json'}
 
