@@ -2,3 +2,4 @@ nextcord
 requests
 python-dotenv
 beautifulsoup4
+python3-audioop
