@@ -1,4 +1,15 @@
-py-cord[voice]
-requests
-python-dotenv
-beautifulsoup4
+# Discord Bot Dependencies - Pinned for security
+# Last updated: 2026-02-03
+
+# Discord library (Pycord)
+py-cord[voice]==2.6.1
+
+# Async HTTP client (replaces blocking 'requests')
+aiohttp==3.9.5
+
+# Environment variable management
+python-dotenv==1.0.1
+
+# Note: beautifulsoup4 was removed as it was unused
+# Add it back if you need HTML parsing:
+# beautifulsoup4==4.12.3
