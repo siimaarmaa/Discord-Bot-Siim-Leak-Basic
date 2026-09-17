@@ -5,7 +5,7 @@
 py-cord[voice]==2.6.1
 
 # Async HTTP client (replaces blocking 'requests')
-aiohttp==3.9.5
+aiohttp==3.13.3
 
 # Environment variable management
 python-dotenv==1.0.1
